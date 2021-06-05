@@ -6,15 +6,23 @@
     <table class="table is-striped is-bordered mt-2 is-fullwidth">
       <thead>
         <tr>
+          <th>Image</th>
           <th>Book Name</th>
-          <th>Author</th>
+          <th>Book Author</th>
+          <th>Genre</th>
+          <th>Reviewer</th>
+          <th>Review</th>
           <th class="has-text-centered">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.review_id">
+          <td><img :src="item.image_path"></td>
           <td>{{ item.book_name }}</td>
           <td>{{ item.author }}</td>
+          <td>{{ item.genre_name }}</td>
+          <td>{{ item.first_name }} {{ item.last_name }}</td>
+          <td>{{ item.review_text }}</td>
           <td class="has-text-centered">
             <router-link
               :to="{ name: 'Edit', params: { id: item.review_id } }"

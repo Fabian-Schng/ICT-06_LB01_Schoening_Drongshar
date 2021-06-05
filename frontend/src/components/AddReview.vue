@@ -1,29 +1,39 @@
 <template>
   <div>
     <div class="field">
-      <label class="label">Review Name</label>
+      <label class="label">Book</label>
       <div class="control">
-        <input
-          class="input"
-          type="text"
-          placeholder="Review Name"
-          v-model="reviewName"
-        />
+        <div class="control">
+          <div class="select">
+            <select v-model="bookId">
+              <option
+                v-for="book in [
+                  { id: '3', name: '1984' },
+                  { id: '4', name: 'Royal Holiday' },
+                ]" v-bind:key="book.id" v-bind:value="book.id" 
+              >
+                {{ book.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
- 
+
     <div class="field">
-      <label class="label">Price</label>
+      <label class="label">Review</label>
       <div class="control">
-        <input
+        <textarea
           class="input"
+          rows="10"
+          cols="80"
           type="text"
-          placeholder="Price"
-          v-model="reviewPrice"
+          placeholder="Review"
+          v-model="reviewText"
         />
       </div>
     </div>
- 
+
     <div class="control">
       <button class="button is-success" @click="saveReview">SAVE</button>
     </div>
@@ -33,25 +43,28 @@
 <script>
 // import axios
 import axios from "axios";
- 
+
 export default {
   name: "AddReview",
   data() {
     return {
-      reviewName: "",
-      reviewPrice: "",
+      bookId: "",
+      reviewText: "",
     };
   },
   methods: {
     // Create New review
     async saveReview() {
       try {
+          console.log(this.bookId)
+          console.log(this.reviewText)
         await axios.post("http://localhost:5000/reviews", {
-          review_name: this.reviewName,
-          review_price: this.reviewPrice,
+          book_id: this.bookId,
+          review_text: this.reviewText,
+          user_id: 2  // hardcoded
         });
-        this.reviewName = "";
-        this.reviewPrice = "";
+        this.bookId = "";
+        this.reviewText = "";
         this.$router.push("/");
       } catch (err) {
         console.log(err);

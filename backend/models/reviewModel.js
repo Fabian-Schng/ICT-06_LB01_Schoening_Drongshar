@@ -3,7 +3,7 @@ import db from "../config/database.js";
  
 // Get All Reviews
 export const getReviews = (result) => {
-    db.query("SELECT * FROM book_review_v", (err, results) => {             
+    db.query("SELECT * FROM book_review_v ORDER BY genre_name, book_name", (err, results) => {             
         if(err) {
             console.log(err);
             result(err, null);
@@ -27,7 +27,7 @@ export const getReviewById = (id, result) => {
  
 // Insert Review to Database
 export const insertReview = (data, result) => {
-    db.query("INSERT INTO book_review SET ?", [data], (err, results) => {             
+    db.query("INSERT INTO book_review (book_id, review_text, user_id) VALUES(?, ?, ?)", [data.book_id, data.review_text, data.user_id], (err, results) => {             
         if(err) {
             console.log(err);
             result(err, null);
