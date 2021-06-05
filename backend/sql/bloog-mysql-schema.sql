@@ -42,5 +42,4 @@ select r.review_id, r.review_text, u.first_name, u.last_name,
   from book_review r 
  inner join user  as u on u.user_id  = r.user_id
  inner join book  as b on r.book_id  = b.book_id
- inner join genre as g on b.genre_id = g.genre_id;
-
+ inner join genre as g on b.genre_id = g.genre_id
