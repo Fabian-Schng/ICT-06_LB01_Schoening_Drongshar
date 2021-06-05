@@ -36,6 +36,9 @@ create table if not exists book_review
 		foreign key (book_id) references book (book_id)
 );
 
+
+-- views for queries (get reviews, get books)
+
 create or replace view book_review_v as 
 select r.review_id, r.review_text, u.first_name, u.last_name,
        b.book_name, b.author, b.image_file_name, b.genre_name,
