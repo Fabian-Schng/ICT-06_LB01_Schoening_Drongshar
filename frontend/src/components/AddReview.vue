@@ -7,12 +7,11 @@
           <div class="select">
             <select v-model="bookId">
               <option
-                v-for="book in [
-                  { id: '3', name: '1984' },
-                  { id: '4', name: 'Royal Holiday' },
-                ]" v-bind:key="book.id" v-bind:value="book.id" 
+                v-for="book in this.books"
+                v-bind:key="book.book_id"
+                v-bind:value="book.book_id"
               >
-                {{ book.name }}
+                {{ book.book_name + ": " + book.genre_name }}
               </option>
             </select>
           </div>
@@ -24,7 +23,6 @@
       <label class="label">Review</label>
       <div class="control">
         <textarea
-          class="input"
           rows="10"
           cols="80"
           type="text"
@@ -48,20 +46,34 @@ export default {
   name: "AddReview",
   data() {
     return {
+      books: [],
       bookId: "",
       reviewText: "",
+      userId: "",
     };
   },
+
+  created() {
+    this.getBooks();
+  },
+
   methods: {
+    async getBooks() {
+      try {
+        const response = await axios.get("http://localhost:5000/books");
+        this.books = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     // Create New review
     async saveReview() {
       try {
-          console.log(this.bookId)
-          console.log(this.reviewText)
         await axios.post("http://localhost:5000/reviews", {
           book_id: this.bookId,
           review_text: this.reviewText,
-          user_id: 2  // hardcoded
+          user_id: 2, // hardcoded, get from context after login
         });
         this.bookId = "";
         this.reviewText = "";

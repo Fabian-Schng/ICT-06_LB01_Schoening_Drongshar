@@ -17,22 +17,24 @@
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.review_id">
-          <td><img :src="item.image_path"></td>
+          <td><img :src="item.image_path" /></td>
           <td>{{ item.book_name }}</td>
           <td>{{ item.author }}</td>
           <td>{{ item.genre_name }}</td>
           <td>{{ item.first_name }} {{ item.last_name }}</td>
           <td>{{ item.review_text }}</td>
           <td class="has-text-centered">
+            <!--
             <router-link
               :to="{ name: 'Edit', params: { id: item.review_id } }"
               class="button is-info is-small"
               >Edit</router-link
             >
+             -->
             <a
               class="button is-danger is-small"
               @click="deleteReview(item.review_id)"
-              >Delete</a 
+              >Delete</a
             >
           </td>
         </tr>
@@ -44,7 +46,7 @@
 <script>
 // import axios
 import axios from "axios";
- 
+
 export default {
   name: "ReviewList",
   data() {
@@ -52,11 +54,11 @@ export default {
       items: [],
     };
   },
- 
+
   created() {
     this.getReviews();
   },
- 
+
   methods: {
     // Get All Reviews
     async getReviews() {
@@ -67,7 +69,7 @@ export default {
         console.log(err);
       }
     },
- 
+
     // Delete Review
     async deleteReview(id) {
       try {
