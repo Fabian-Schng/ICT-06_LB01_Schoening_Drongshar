@@ -38,9 +38,14 @@ create table if not exists book_review
 
 create or replace view book_review_v as 
 select r.review_id, r.review_text, u.first_name, u.last_name,
-       b.book_name, b.author, b.image_file_name, g.genre_name,
-       concat('/assets/images/', b.image_file_name) as image_path
+       b.book_name, b.author, b.image_file_name, b.genre_name,
+       b.image_path
   from book_review r 
- inner join user  as u on u.user_id  = r.user_id
- inner join book  as b on r.book_id  = b.book_id
- inner join genre as g on b.genre_id = g.genre_id
+ inner join user   as u on u.user_id  = r.user_id
+ inner join book_v as b on r.book_id  = b.book_id;
+
+create or replace view book_v as
+select b.book_id, b.book_name, b.author, b.image_file_name, g.genre_name,
+       concat('/assets/images/', b.image_file_name) as image_path
+  from book b
+ inner join genre as g on b.genre_id = g.genre_id;

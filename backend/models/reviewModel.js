@@ -1,6 +1,18 @@
 // import connection
 import db from "../config/database.js";
- 
+
+// Get All Books
+export const getBooks = (result) => {
+    db.query("SELECT * FROM book_v ORDER BY book_name", (err, results) => {             
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    });   
+}
+
 // Get All Reviews
 export const getReviews = (result) => {
     db.query("SELECT * FROM book_review_v ORDER BY genre_name, book_name", (err, results) => {             

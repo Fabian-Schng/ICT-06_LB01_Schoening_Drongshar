@@ -2,10 +2,13 @@
 import express from "express";
 
 // import function from controller
-import { showReviews, showReviewById, createReview, updateReview, deleteReview } from "../controllers/review.js";
+import { showBooks, showReviews, showReviewById, createReview, updateReview, deleteReview } from "../controllers/review.js";
 
 // init express router
 const router = express.Router();
+
+// Get All Books
+router.get('/books', showBooks);
 
 // Get All Reviews
 router.get('/reviews', showReviews);
