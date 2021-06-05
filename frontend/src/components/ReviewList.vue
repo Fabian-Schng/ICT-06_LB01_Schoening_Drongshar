@@ -22,7 +22,7 @@
           <td>{{ item.author }}</td>
           <td>{{ item.genre_name }}</td>
           <td>{{ item.first_name }} {{ item.last_name }}</td>
-          <td>{{ item.review_text }}</td>
+          <td style="white-space: pre-wrap">{{ item.review_text }}</td>
           <td class="has-text-centered">
             <!--
             <router-link
